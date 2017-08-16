@@ -10,6 +10,8 @@ namespace DawnOfWar_server
     {
         static void Main(string[] args)
         {
+            DataBase.DbConnection conn = new DataBase.DbConnection();
+            conn.SetNewUser();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace DawnOfWar_server.DataBase
     {
         private static SqlConnection GetConnection()
         {
-            var connection = "Data Source=" + Model.server + ";Initial Catalog=ProjectAuth_DB;Integrated security=False;User Id=" + Model.login + ";Password = " + Model.pass + ";";
+            var connection = "Data Source=" + Model.Server + ";Initial Catalog=" + Model.nameDB + ";Integrated security=False;User Id=" + Model.login + ";Password = " + Model.pass + ";";
             SqlConnection conn = new SqlConnection(connection);
             try
             {
@@ -265,23 +265,24 @@ namespace DawnOfWar_server.DataBase
             cmd.ExecuteNonQuery();
         }
 
-        internal static void SetCertificateStatus(string guid, string status)
+        public void SetNewUser()
         {
             var conn = GetConnection();
             if (conn == null)
                 return;
-            string comm = @"Insert INTO [dbo].[CertificateStatus] ([CertificateId],[statusId],[date]) VALUES ((Select id from [dbo].[Certificate] where guid=@guid), @state, @date)";
+            string comm = @"Insert INTO [dbo].[tblUser] ([Name],[email],[password]) VALUES (@val1, @val2, @val3)";
             SqlCommand cmd = new SqlCommand(comm, conn);
-            cmd.Parameters.AddWithValue("guid", guid);
-            cmd.Parameters.AddWithValue("date", DateTime.Now);
-            if (status == "active")
-                cmd.Parameters.AddWithValue("state", 2);
-            else if (status == "block")
-                cmd.Parameters.AddWithValue("state", 3);
-            else if (status == "timeEnd")
-                cmd.Parameters.AddWithValue("state", 4);
-            else
-                cmd.Parameters.AddWithValue("state", 1);
+            cmd.Parameters.AddWithValue("val1", "Petez");
+            cmd.Parameters.AddWithValue("val2", "email@mail.ru");
+            cmd.Parameters.AddWithValue("val3", "mytestpasswordforgame");
+            //if (status == "active")
+            //    cmd.Parameters.AddWithValue("state", 2);
+            //else if (status == "block")
+            //    cmd.Parameters.AddWithValue("state", 3);
+            //else if (status == "timeEnd")
+            //    cmd.Parameters.AddWithValue("state", 4);
+            //else
+            //    cmd.Parameters.AddWithValue("state", 1);
             cmd.ExecuteNonQuery();
             cmd = null;
         }

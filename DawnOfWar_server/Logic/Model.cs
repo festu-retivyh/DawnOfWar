@@ -8,8 +8,9 @@ namespace DawnOfWar_server
 {
     class Model
     {
-        internal static string login;
-        internal static string pass;
-        internal static string server;
+        internal static string login = "adm";
+        internal static string pass = "Jhjk1209";
+        internal static string nameDB = "TEST_DownOfWar";
+        internal static string Server = "MACHINE";
     }
 }
